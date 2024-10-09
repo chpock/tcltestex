@@ -645,15 +645,26 @@ proc ::tcltest::puts { args } {
 
             if { $line_number } {
                 if { [string trim $line] ne "" } {
-                    if { [string index [string trimleft $line] 0] eq "#" } {
-                        set format {$cyan%2d $gray%s$reset}
-                    } elseif {
-                        [dict exists $ex_info $ex_testname failedAssertLines] &&
-                        [lsearch -exact [dict get $ex_info $ex_testname failedAssertLines] $line_number] != -1
-                    } {
-                        set format {$cyan%2d$Red>$red%s$reset}
+                    if { $Option(-colors) } {
+                        if { [string index [string trimleft $line] 0] eq "#" } {
+                            set format {$cyan%2d $gray%s$reset}
+                        } elseif {
+                            [dict exists $ex_info $ex_testname failedAssertLines] &&
+                            [lsearch -exact [dict get $ex_info $ex_testname failedAssertLines] $line_number] != -1
+                        } {
+                            set format {$cyan%2d$Red>$red%s$reset}
+                        } else {
+                            set format {$cyan%2d $reset%s}
+                        }
                     } else {
-                        set format {$cyan%2d $reset%s}
+                        if {
+                            [dict exists $ex_info $ex_testname failedAssertLines] &&
+                            [lsearch -exact [dict get $ex_info $ex_testname failedAssertLines] $line_number] != -1
+                        } {
+                            set format {%2d>%s}
+                        } else {
+                            set format {%2d %s}
+                        }
                     }
                     set format [string map $ansi_colors $format]
                     set line [format $format $line_number $line]
