@@ -173,8 +173,14 @@ proc ::tcltest::istty { } {
     if { $::tcl_platform(platform) ne "unix" } {
         return 0
     }
-    if { [catch { exec /usr/bin/test -t 1 >@stdout } err] } {
-        ::puts stderr "test err: $err"
+    if { [file executable /bin/test] } {
+        set test "/bin/test"
+    } elseif { [file executable /usr/bin/test] } {
+        set test "/usr/bin/test"
+    } else {
+        return 0
+    }
+    if { [catch { exec $test -t 1 >@stdout } err] } {
         return 0
     }
     return 1
