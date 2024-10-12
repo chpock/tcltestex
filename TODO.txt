@@ -1,0 +1,3 @@
+* added support for simultaneous launch of several test files using runAllTests.
+  Each test file may contain string "# tcltestex: async".
+  In this case, these tests will be run by "open |[interp] ..." in background.
