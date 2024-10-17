@@ -742,7 +742,7 @@ proc ::tcltest::GenerateAssertMessage { args } {
     }
     dict set ex_info $ex_testname failedAsserts $msg
 
-    return $msg
+    return ""
 
 }
 
