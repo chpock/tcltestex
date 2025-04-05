@@ -1039,7 +1039,7 @@ proc ::tcltest::assertContain { haystack needle { description {} } } {
         return $haystack
     }
     GenerateAssertMessage \
-        "Value from test was:" $actual \
+        "Value from test was:" $haystack \
         "Should have contained this substring:" $needle
 }
 
@@ -1048,7 +1048,7 @@ proc ::tcltest::assertNotContain { haystack needle { description {} } } {
         return $haystack
     }
     GenerateAssertMessage \
-        "Value from test was:" $actual \
+        "Value from test was:" $haystack \
         "Should NOT have contained this substring:" $needle
 }
 
